@@ -12,9 +12,12 @@ namespace Pegas.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class JobNameEnum
+    public partial class JobDetail
     {
         public int ID { get; set; }
         public string Detail { get; set; }
+        public string Duration { get; set; }
+        public string Distance { get; set; }
+        public int JobType { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace Pegas.Data
         }
     
         public virtual DbSet<FlightCodeEnum> FlightCodeEnums { get; set; }
-        public virtual DbSet<JobNameEnum> JobNameEnums { get; set; }
+        public virtual DbSet<JobDetail> JobDetails { get; set; }
         public virtual DbSet<JobTypeEnum> JobTypeEnums { get; set; }
         public virtual DbSet<MeetingPointEnum> MeetingPointEnums { get; set; }
         public virtual DbSet<UserRoleEnum> UserRoleEnums { get; set; }

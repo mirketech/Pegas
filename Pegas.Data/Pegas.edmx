@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PegasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PegasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Pegas.dbo.Companies' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Companies">
@@ -64,12 +64,15 @@ warning 6002: The table/view 'Pegas.dbo.Drivers' does not have a primary key def
           <Property Name="Detail" Type="nvarchar" MaxLength="50" />
           <Property Name="Airline" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="JobNameEnum">
+        <EntityType Name="JobDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Detail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Duration" Type="nvarchar" MaxLength="10" />
+          <Property Name="Distance" Type="nvarchar" MaxLength="10" />
+          <Property Name="JobType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="JobTypeEnum">
           <Key>
@@ -131,7 +134,7 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
         </EntityType>
         <EntityContainer Name="PegasModelStoreContainer">
           <EntitySet Name="FlightCodeEnum" EntityType="Self.FlightCodeEnum" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="JobNameEnum" EntityType="Self.JobNameEnum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobDetail" EntityType="Self.JobDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobTypeEnum" EntityType="Self.JobTypeEnum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeetingPointEnum" EntityType="Self.MeetingPointEnum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoleEnum" EntityType="Self.UserRoleEnum" Schema="dbo" store:Type="Tables" />
@@ -189,11 +192,23 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
     FROM [dbo].[Vehicles] AS [Vehicles]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PegasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PegasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FlightCodeEnums" EntityType="PegasModel.FlightCodeEnum" />
+          <EntitySet Name="JobDetails" EntityType="PegasModel.JobDetail" />
+          <EntitySet Name="JobTypeEnums" EntityType="PegasModel.JobTypeEnum" />
+          <EntitySet Name="MeetingPointEnums" EntityType="PegasModel.MeetingPointEnum" />
+          <EntitySet Name="UserRoleEnums" EntityType="PegasModel.UserRoleEnum" />
+          <EntitySet Name="VehicleTypeEnums" EntityType="PegasModel.VehicleTypeEnum" />
+          <EntitySet Name="Companies" EntityType="PegasModel.Company" />
+          <EntitySet Name="Contracts" EntityType="PegasModel.Contract" />
+          <EntitySet Name="Drivers" EntityType="PegasModel.Driver" />
+          <EntitySet Name="Users" EntityType="PegasModel.User" />
+          <EntitySet Name="Vehicles" EntityType="PegasModel.Vehicle" />
+        </EntityContainer>
         <EntityType Name="FlightCodeEnum">
           <Key>
             <PropertyRef Name="ID" />
@@ -202,12 +217,15 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
           <Property Name="Detail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Airline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="JobNameEnum">
+        <EntityType Name="JobDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Detail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Distance" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="JobType" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="JobTypeEnum">
           <Key>
@@ -246,12 +264,12 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
             <PropertyRef Name="Contact_Number" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Company_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Company_Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Company_Address" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Company_IBAN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Contact_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Contact_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Contact_Number" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contact_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Number" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Contract">
           <Key>
@@ -262,10 +280,10 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
             <PropertyRef Name="EndDate" />
           </Key>
           <Property Name="ContractID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ContractName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContractName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="StartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EndDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -302,25 +320,12 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="Plate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Plate" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Driver" Type="Int32" Nullable="false" />
           <Property Name="Company" Type="Int32" Nullable="false" />
           <Property Name="MonthlyCost" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SeatCount" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="PegasEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="FlightCodeEnums" EntityType="Self.FlightCodeEnum" />
-          <EntitySet Name="JobNameEnums" EntityType="Self.JobNameEnum" />
-          <EntitySet Name="JobTypeEnums" EntityType="Self.JobTypeEnum" />
-          <EntitySet Name="MeetingPointEnums" EntityType="Self.MeetingPointEnum" />
-          <EntitySet Name="UserRoleEnums" EntityType="Self.UserRoleEnum" />
-          <EntitySet Name="VehicleTypeEnums" EntityType="Self.VehicleTypeEnum" />
-          <EntitySet Name="Companies" EntityType="Self.Company" />
-          <EntitySet Name="Contracts" EntityType="Self.Contract" />
-          <EntitySet Name="Drivers" EntityType="Self.Driver" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -330,111 +335,114 @@ warning 6002: The table/view 'Pegas.dbo.Vehicles' does not have a primary key de
           <EntitySetMapping Name="FlightCodeEnums">
             <EntityTypeMapping TypeName="PegasModel.FlightCodeEnum">
               <MappingFragment StoreEntitySet="FlightCodeEnum">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="Airline" ColumnName="Airline" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="JobNameEnums">
-            <EntityTypeMapping TypeName="PegasModel.JobNameEnum">
-              <MappingFragment StoreEntitySet="JobNameEnum">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="JobDetails">
+            <EntityTypeMapping TypeName="PegasModel.JobDetail">
+              <MappingFragment StoreEntitySet="JobDetail">
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobTypeEnums">
             <EntityTypeMapping TypeName="PegasModel.JobTypeEnum">
               <MappingFragment StoreEntitySet="JobTypeEnum">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MeetingPointEnums">
             <EntityTypeMapping TypeName="PegasModel.MeetingPointEnum">
               <MappingFragment StoreEntitySet="MeetingPointEnum">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserRoleEnums">
             <EntityTypeMapping TypeName="PegasModel.UserRoleEnum">
               <MappingFragment StoreEntitySet="UserRoleEnum">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VehicleTypeEnums">
             <EntityTypeMapping TypeName="PegasModel.VehicleTypeEnum">
               <MappingFragment StoreEntitySet="VehicleTypeEnum">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Companies">
             <EntityTypeMapping TypeName="PegasModel.Company">
               <MappingFragment StoreEntitySet="Companies">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
-                <ScalarProperty Name="Company_Address" ColumnName="Company_Address" />
-                <ScalarProperty Name="Company_IBAN" ColumnName="Company_IBAN" />
-                <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
-                <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
                 <ScalarProperty Name="Contact_Number" ColumnName="Contact_Number" />
+                <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
+                <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
+                <ScalarProperty Name="Company_IBAN" ColumnName="Company_IBAN" />
+                <ScalarProperty Name="Company_Address" ColumnName="Company_Address" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Contracts">
             <EntityTypeMapping TypeName="PegasModel.Contract">
               <MappingFragment StoreEntitySet="Contracts">
-                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
-                <ScalarProperty Name="ContractName" ColumnName="ContractName" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ContractName" ColumnName="ContractName" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Drivers">
             <EntityTypeMapping TypeName="PegasModel.Driver">
               <MappingFragment StoreEntitySet="Drivers">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PegasModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Vehicles">
             <EntityTypeMapping TypeName="PegasModel.Vehicle">
               <MappingFragment StoreEntitySet="Vehicles">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="Plate" ColumnName="Plate" />
-                <ScalarProperty Name="Driver" ColumnName="Driver" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="MonthlyCost" ColumnName="MonthlyCost" />
                 <ScalarProperty Name="SeatCount" ColumnName="SeatCount" />
+                <ScalarProperty Name="MonthlyCost" ColumnName="MonthlyCost" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="Plate" ColumnName="Plate" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

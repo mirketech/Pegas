@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Pegas.Data;
+using Pegas.Data.Repository;
 using Pegas.UI.Models;
 
 namespace Pegas.UI.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUserRepository _userRepository;
         // GET: Account
+        public AccountController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
         public ActionResult Login()
         {
             return View();
@@ -66,7 +70,6 @@ namespace Pegas.UI.Controllers
             TempData["ErrorMessage"] = msg;
             return RedirectToAction("Login");
         }
-
         [HttpPost]
         public ActionResult ChangePassword(ChangePSModel record)
         {
@@ -78,7 +81,7 @@ namespace Pegas.UI.Controllers
                 {
                     if (record.NewPassword == record.NewPasswordAgain)
                     {
-                        entity = context.Users.First(p => p.Username == record.UserName);
+                        entity = _userRepository.Get(p => p.Username == record.UserName);
                         if (entity.Password == record.OldPassword)
                         {
                             entity.Password = record.NewPassword;
@@ -173,9 +176,11 @@ namespace Pegas.UI.Controllers
                 "Pegas TH IT Team";
 
             // Create and build a new MailMessage object
-            MailMessage message = new MailMessage();
-            message.IsBodyHtml = true;
-            message.From = new MailAddress(FROM, FROMNAME);
+            MailMessage message = new MailMessage
+            {
+                IsBodyHtml = true,
+                From = new MailAddress(FROM, FROMNAME)
+            };
             message.To.Add(new MailAddress(TO));
             message.Subject = SUBJECT;
             message.Body = BODY;

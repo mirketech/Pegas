@@ -520,6 +520,44 @@
     <Content Include="Scripts\nestable\jquery.nestable.js" />
     <Content Include="Scripts\nouislider\distribute\nouislider.min.css" />
     <Content Include="Scripts\nouislider\distribute\nouislider.min.js" />
+    <Content Include="Scripts\paramgrid\angular\ng.pqgrid.dev.js" />
+    <Content Include="Scripts\paramgrid\angular\ng.pqgrid.min.js" />
+    <Content Include="Scripts\paramgrid\array.htm" />
+    <Content Include="Scripts\paramgrid\ChangeLog.txt" />
+    <Content Include="Scripts\paramgrid\GPL-LICENSE.txt" />
+    <Content Include="Scripts\paramgrid\images\horiz-bg.png" />
+    <Content Include="Scripts\paramgrid\images\horiz-slider-bg.png" />
+    <Content Include="Scripts\paramgrid\images\loading.gif" />
+    <Content Include="Scripts\paramgrid\images\sprite.png" />
+    <Content Include="Scripts\paramgrid\images\square-blue-tr.gif" />
+    <Content Include="Scripts\paramgrid\images\square-red-rb.gif" />
+    <Content Include="Scripts\paramgrid\images\square-red-tr.gif" />
+    <Content Include="Scripts\paramgrid\images\square_dirty.gif" />
+    <Content Include="Scripts\paramgrid\images\vert-bg.png" />
+    <Content Include="Scripts\paramgrid\images\vert-slider-bg.png" />
+    <Content Include="Scripts\paramgrid\index.htm" />
+    <Content Include="Scripts\paramgrid\json.htm" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-de.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-en.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-es.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-fr.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-hu.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-it.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-ja.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-nl.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-pl.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-pt-br.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-pt.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-ru.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-tr.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-zh.js" />
+    <Content Include="Scripts\paramgrid\localize\pq-localize-zh_TW.js" />
+    <Content Include="Scripts\paramgrid\pqgrid.dev.css" />
+    <Content Include="Scripts\paramgrid\pqgrid.dev.js" />
+    <Content Include="Scripts\paramgrid\pqgrid.min.css" />
+    <Content Include="Scripts\paramgrid\pqgrid.min.js" />
+    <Content Include="Scripts\paramgrid\themes\Office\images\header-hover.gif" />
+    <Content Include="Scripts\paramgrid\themes\Office\pqgrid.css" />
     <Content Include="Scripts\perfect-scrollbar\dist\perfect-scrollbar.jquery.min.js" />
     <Content Include="Scripts\pickadate\lib\compressed\legacy.js" />
     <Content Include="Scripts\pickadate\lib\compressed\picker.date.js" />
@@ -661,10 +699,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DefinitionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\DefinitionModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -712,6 +752,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\Settings.cshtml" />
+    <Content Include="Views\Definition\JobType.cshtml" />
+    <Content Include="Scripts\paramgrid\bower.json" />
+    <Content Include="Scripts\paramgrid\pqgrid.jquery.json" />
+    <Content Include="Scripts\paramgrid\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
